@@ -24,6 +24,8 @@
 
 FILE_LIST="ar-lib compile config.guess config.sub install-sh"
 
+UPDATE_LIST=
+
 update()
 {
     echo "-- Updating $2..."
@@ -34,16 +36,26 @@ update()
         mv $3/$2.old $3/$2
         return 0
     fi
-    diff --color $3/$2 $3/$2.old
+    diff $3/$2 $3/$2.old
+    if [ "$!" = "" ]; then
+        UPDATE_LIST="$UPDATE_LIST $2"
+    fi
     rm $3/$2.old
     chmod +x $3/$2
 }
 
 # Main
-echo Updating build-aux scripts...
+echo "Updating autoconf build-aux scripts..."
 rm -f autoconf/*.old
 
 for i in $FILE_LIST
 do
     update automake.git $i autoconf
 done
+
+COMMIT_MSG="Chore: Update autoconf build scripts:$UPDATE_LIST"
+
+echo "$COMMIT_MSG"
+
+git add .
+git commit -m "$COMMIT_MSG"

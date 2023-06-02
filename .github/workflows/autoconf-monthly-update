@@ -1,0 +1,20 @@
+name: Autoconf Monthly Update
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+
+jobs:
+  monthly-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run update script
+        run: ./update-autoconf-build-aux.sh
+        shell: sh
+      
+      - name: Git push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
