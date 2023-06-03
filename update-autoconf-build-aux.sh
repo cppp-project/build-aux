@@ -37,7 +37,7 @@ update()
         return 0
     fi
     diff $3/$2 $3/$2.old
-    if [ "$!" = "" ]; then
+    if [ "$!" != "" ]; then
         UPDATE_LIST="$UPDATE_LIST $2"
     fi
     rm $3/$2.old

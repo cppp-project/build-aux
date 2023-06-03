@@ -10,11 +10,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
+      - name: Setup git identity
+        run:  |
+          git config --global user.email "wushengwuxi-msctinoulk@outlook.com"
+          git config --global user.name "ChenPi11"
+
       - name: Run update script
         run: ./update-autoconf-build-aux.sh
         shell: sh
+
+      - name: Pull repo
+        run: git pull origin main --tag -f
       
-      - name: Git push
+      - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          force: true
