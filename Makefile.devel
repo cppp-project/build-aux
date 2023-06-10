@@ -1,0 +1,22 @@
+# -*- makefile -*-
+# This is the developer's makefile.
+
+AUTOCONF = autoconf
+
+all : configure
+
+CONFIGURES_IN = configure.ac
+
+configure : configure.ac
+	$(AUTOCONF) && $(RM) -rf autom4te.cache
+
+check : configure
+	set -e; for f in configure; do bash -x -n $$f; done
+
+clean :
+	if test -f Makefile; then $(MAKE) clean; fi
+	$(RM) -rf autom4te.cache configure Makefile
+
+diskcheck : check
+
+distclean : clean

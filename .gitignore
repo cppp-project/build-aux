@@ -3,3 +3,15 @@
 
 # Dist directory
 build-aux-*
+
+# Autoconf build temp
+autom4te.cache
+
+# Configure files
+config.log
+config.status
+configure
+Makefile
+
+# CMake build temp
+build/
