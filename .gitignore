@@ -1,2 +1,5 @@
 # Build-aux updater temp
 *.old
+
+# Dist directory
+build-aux-*

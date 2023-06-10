@@ -1,0 +1,36 @@
+# -*- makefile -*-
+# Prepare build-aux dist.
+
+PACKAGE ?= build-aux
+VERSION ?= 1.0.0
+srcdir ?= .
+
+DISTFILES = \
+  Makefile.dist \
+  update-autoconf-build-aux.sh \
+  LICENSE \
+  README.md \
+  autoconf \
+  autoconf/missing \
+  autoconf/config.sub \
+  autoconf/compile \
+  autoconf/config.guess \
+  autoconf/ltmain.sh \
+  autoconf/install-sh \
+  autoconf/ar-lib \
+  autoconf/mkinstalldirs
+
+all : dist
+
+distdir : $(DISTFILES)
+	for file in $(DISTFILES); do \
+	  if test -f $$file; then dir='.'; else dir='$(srcdir)'; fi; \
+	  distdir=`echo '$(distdir)'/$$file | sed -e 's|//*[^/]*$$||'`; \
+	  test -d "$$distdir" || $(mkinstalldirs) "$$distdir" >/dev/null; \
+	  cp -rp "$$dir/$$file" '$(distdir)'/$$file || exit 1; \
+	done
+
+dist :
+	abstmpdistdir=`pwd`/$(PACKAGE)-$(VERSION) \
+	  && mkdir -p $$abstmpdistdir \
+	  && $(MAKE) -f Makefile.dist distdir distdir="$$abstmpdistdir"
