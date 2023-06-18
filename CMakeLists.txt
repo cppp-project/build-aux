@@ -1,4 +1,4 @@
-# Copyright (C) The C++ Plus Project.
+# Copyright (C) 2023 The C++ Plus Project.
 # This file is part of the build-aux Library.
 #
 # The build-aux Library is free software; you can redistribute it
