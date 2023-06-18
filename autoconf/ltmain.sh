@@ -2,7 +2,7 @@
 ## DO NOT EDIT - This file generated from ./build-aux/ltmain.in
 ##               by inline-source v2019-02-19.15
 
-# libtool (GNU libtool) 2.4.7
+# libtool (GNU libtool) 2.4.7.4-1ec8f
 # Provide generalized library-building support services.
 # Written by Gordon Matzigkeit <gord@gnu.ai.mit.edu>, 1996
 
@@ -31,8 +31,8 @@
 
 PROGRAM=libtool
 PACKAGE=libtool
-VERSION=2.4.7
-package_revision=2.4.7
+VERSION=2.4.7.4-1ec8f
+package_revision=2.4.7.4
 
 
 ## ------ ##
@@ -1562,7 +1562,7 @@ scriptversion=2019-02-19.15; # UTC
 #
 # For the simplest scripts you might need only:
 #
-#   #!/usr/bin/sh
+#   #!/bin/sh
 #   . relative/path/to/funclib.sh
 #   . relative/path/to/options-parser
 #   scriptversion=1.0
@@ -2215,7 +2215,7 @@ func_version ()
 # End:
 
 # Set a version string.
-scriptversion='(GNU libtool) 2.4.7'
+scriptversion='(GNU libtool) 2.4.7.4-1ec8f'
 
 
 # func_echo ARG...
@@ -2306,12 +2306,12 @@ include the following information:
        compiler:       $LTCC
        compiler flags: $LTCFLAGS
        linker:         $LD (gnu? $with_gnu_ld)
-       version:        $progname (GNU libtool) 2.4.7
+       version:        $progname (GNU libtool) 2.4.7.4-1ec8f
        automake:       `($AUTOMAKE --version) 2>/dev/null |$SED 1q`
        autoconf:       `($AUTOCONF --version) 2>/dev/null |$SED 1q`
 
 Report bugs to <bug-libtool@gnu.org>.
-GNU libtool home page: <http://www.gnu.org/software/libtool/>.
+GNU libtool home page: <http://www.gnu.org/s/libtool/>.
 General help using GNU software: <http://www.gnu.org/gethelp/>."
     exit 0
 }
@@ -3974,7 +3974,6 @@ a program from several object files.
 The following components of LINK-COMMAND are treated specially:
 
   -all-static       do not do any dynamic linking at all
-  -static           do not do any dynamic linking at all
   -avoid-version    do not add a version suffix if possible
   -bindir BINDIR    specify path to binaries directory (for systems where
                     libraries must be found in the PATH setting at runtime)
@@ -4001,8 +4000,7 @@ The following components of LINK-COMMAND are treated specially:
   -R[ ]LIBDIR       add LIBDIR to the runtime path of programs and libraries
   -shared           only do dynamic linking of libtool libraries
   -shrext SUFFIX    override the standard shared library file extension
-  -static-uninstalled-libs
-                    do not do any dynamic linking of uninstalled libtool libraries
+  -static           do not do any dynamic linking of uninstalled libtool libraries
   -static-libtool-libs
                     do not do any dynamic linking of libtool libraries
   -version-info CURRENT[:REVISION[:AGE]]
@@ -6832,9 +6830,9 @@ func_mode_link ()
 	build_old_libs=no
 	break
 	;;
-      -all-static | -static | -static-uninstalled-libs | -static-libtool-libs)
+      -all-static | -static | -static-libtool-libs)
 	case $arg in
-	-all-static | -static)
+	-all-static)
 	  if test yes = "$build_libtool_libs" && test -z "$link_static_flag"; then
 	    func_warning "complete static linking is impossible in this configuration"
 	  fi
@@ -6843,7 +6841,7 @@ func_mode_link ()
 	  fi
 	  prefer_static_libs=yes
 	  ;;
-	-static-uninstalled-libs)
+	-static)
 	  if test -z "$pic_flag" && test -n "$link_static_flag"; then
 	    dlopen_self=$dlopen_self_static
 	  fi
@@ -7149,7 +7147,7 @@ func_mode_link ()
       prevarg=$arg
 
       case $arg in
-      -all-static | -static)
+      -all-static)
 	if test -n "$link_static_flag"; then
 	  # See comment for -static flag below, for more details.
 	  func_append compile_command " $link_static_flag"
@@ -7452,9 +7450,9 @@ func_mode_link ()
 	continue
 	;;
 
-      -static-uninstalled-libs | -static-libtool-libs)
-	# The effects of -static-uninstalled-libs are defined in a previous
-	# loop.  We used to do the same as -all-static on platforms that
+      -static | -static-libtool-libs)
+	# The effects of -static are defined in a previous loop.
+	# We used to do the same as -all-static on platforms that
 	# didn't have a PIC flag, but the assumption that the effects
 	# would be equivalent was wrong.  It would break on at least
 	# Digital Unix and AIX.
@@ -7560,10 +7558,11 @@ func_mode_link ()
       # -fsanitize=*         Clang/GCC memory and address sanitizer
       # -fuse-ld=*           Linker select flags for GCC
       # -Wa,*                Pass flags directly to the assembler
+      # -Werror, -Werror=*   Report (specified) warnings as errors
       -64|-mips[0-9]|-r[0-9][0-9]*|-xarch=*|-xtarget=*|+DA*|+DD*|-q*|-m*| \
       -t[45]*|-txscale*|-p|-pg|--coverage|-fprofile-*|-F*|@*|-tp=*|--sysroot=*| \
       -O*|-g*|-flto*|-fwhopr*|-fuse-linker-plugin|-fstack-protector*|-stdlib=*| \
-      -specs=*|-fsanitize=*|-fuse-ld=*|-Wa,*)
+      -specs=*|-fsanitize=*|-fuse-ld=*|-Wa,*|-Werror|-Werror=*)
         func_quote_arg pretty "$arg"
 	arg=$func_quote_arg_result
         func_append compile_command " $arg"
