@@ -19,7 +19,10 @@ DISTFILES = \
 	autoconf/ltmain.sh \
 	autoconf/install-sh \
 	autoconf/ar-lib \
-	autoconf/mkinstalldirs
+	autoconf/mkinstalldirs \
+	util-i18n/ChangeLog util-i18n/COPYING util-i18n/lang_file_format.txt util-i18n/README.md \
+	util-i18n/getmsg.ps1 util-i18n/getmsg.sh util-i18n/ilang.ps1 util-i18n/ilang.sh \
+	util-i18n/lang/de_AT.ilang.gm util-i18n/lang/en_US.ilang.gm util-i18n/lang/fr_FR.ilang.gm util-i18n/lang/hi_IN.ilang.gm util-i18n/lang/ja_JP.ilang.gm util-i18n/lang/ko_KR.ilang.gm util-i18n/lang/ru_RU.ilang.gm util-i18n/lang/zh_CN.ilang.gm util-i18n/lang/zh_TW.ilang.gm	
 
 distdir : $(DISTFILES)
 	for file in $(DISTFILES); do \
