@@ -1,11 +1,13 @@
-name: Autoconf Monthly Update
+name: Auto update
 
 on:
   schedule:
     - cron: "0 0 1 * *"
+  push:
+      branches: [ "main" ]
 
 jobs:
-  monthly-update:
+  auto-update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,21 +23,23 @@ jobs:
           sudo chmod 7777 /etc/apt/sources.list
           sudo echo "deb [trusted=yes] http://cdn-fastly.deb.debian.org/debian stable main" >> /etc/apt/sources.list
           sudo apt update
-          sudo apt full-upgrade -y
       
       - name: Collect requirements
         run: |
-          sudo apt install texinfo help2man automake autoconf m4 python3 python3-pip bash make -y
+          sudo apt install texinfo help2man automake autoconf m4 -y
           pip install GitPython
       
       - name: Run update script
         run: ./tools/autoupdate.py
 
-      - name: Pull repo
-        run: git pull origin main --tag -f
+      - name: Pull repo and commit
+        run: |
+          git add .
+          git pull origin main --tag -f
+          git commit -m "Chore: Autoupdate."
       
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: "main"
+          branch: main
