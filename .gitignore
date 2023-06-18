@@ -1,5 +1,7 @@
-# Build-aux updater temp
+# Auto update temps
 *.old
+automake/
+libtool/
 
 # Dist directory
 build-aux-*

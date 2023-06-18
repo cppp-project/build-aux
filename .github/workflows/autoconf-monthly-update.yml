@@ -11,13 +11,25 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Setup git identity
-        run:  |
+        run: |
           git config --global user.email "wushengwuxi-msctinoulk@outlook.com"
           git config --global user.name "ChenPi11"
-
+      
+      - name: Change to Debian apt sources
+        run: |
+          sudo chown $(whoami) /etc/apt/sources.list
+          sudo chmod 7777 /etc/apt/sources.list
+          sudo echo "deb [trusted=yes] http://cdn-fastly.deb.debian.org/debian stable main" >> /etc/apt/sources.list
+          sudo apt update
+          sudo apt full-upgrade -y
+      
+      - name: Collect requirements
+        run: |
+          sudo apt install texinfo help2man automake autoconf m4 python3 python3-pip bash make -y
+          pip install GitPython
+      
       - name: Run update script
-        run: ./update-autoconf-build-aux.sh
-        shell: sh
+        run: ./tools/autoupdate.py
 
       - name: Pull repo
         run: git pull origin main --tag -f
@@ -26,5 +38,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-          force: true
+          branch: "main"
