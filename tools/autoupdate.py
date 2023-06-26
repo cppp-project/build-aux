@@ -100,3 +100,6 @@ copy_from("build/share/automake-1.16/install-sh", "autoconf")
 copy_from("build/share/automake-1.16/missing", "autoconf")
 copy_from("build/share/automake-1.16/mkinstalldirs", "autoconf")
 copy_from("build/share/libtool/build-aux/ltmain.sh", "autoconf")
+
+shutil.rmtree("automake")
+shutil.rmtree("libtool")
