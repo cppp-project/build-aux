@@ -9,6 +9,9 @@ build-aux-*
 # Autoconf build temp
 autom4te.cache
 
+# Vim swap
+*.swp
+
 # Configure files
 config.log
 config.status

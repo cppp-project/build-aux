@@ -20,3 +20,5 @@ project(build-aux LANGUAGES C CXX
         VERSION 1.0.0
         DESCRIPTION "C++ Plus build-aux package"
         HOMEPAGE_URL "https://github.com/cppp-project/build-aux" )
+
+include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/cppp.cmake")

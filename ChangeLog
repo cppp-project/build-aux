@@ -1,0 +1,5 @@
+2023-6-29	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
+
+	Add ChangeLog.
+	Remove autoconf buildsystem support.
+	Update CMake scripts.
