@@ -64,6 +64,9 @@ else()
     set(install_shareddir "${install_prefix}/lib")
 endif()
 
+# Install static output directory.
+set(install_staticdir "${install_prefix}/lib")
+
 # Install include directory.
 set(install_includedir "${install_prefix}/include")
 
