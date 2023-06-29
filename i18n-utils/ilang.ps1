@@ -14,7 +14,7 @@
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public
-# License along with the util-i18n Library; see the file COPYING.
+# License along with the util-i18n Library; see the file COPYING.LIB.
 # If not, see <https://www.gnu.org/licenses/>.
 
 # C++ Plus Include Language Tools for PowerShell.
