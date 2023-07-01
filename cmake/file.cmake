@@ -1,4 +1,4 @@
-# cppp.cmake
+# file.cmake
 
 # Copyright (C) 2023 The C++ Plus Project.
 # This file is part of the build-aux library.
@@ -14,24 +14,24 @@
 # Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public License
-# along with the build-aux; see the file COPYING.LIB.  If not,
+# along with the build-aux; see the file COPYING.  If not,
 # see <https://www.gnu.org/licenses/>.
 
-# C++ Plus CMake build script.
+# C++ Plus file utils for CMake
 
-# Include init.
-include("${CMAKE_CURRENT_LIST_DIR}/cppp_init.cmake")
+macro(cppp_file_compare file1 file2)
+    # Reading file1
+    file(READ "${file1}" content1)
+    string(REPLACE "\r\n" "\n" content1 "${content1}")
+    string(STRIP "${content1}" content1)
 
-# Other modules.
-include("${auxdir}/visibility.cmake")
-include("${auxdir}/file.cmake")
+    # Reading file2
+    file(READ "${file2}" content2)
+    string(REPLACE "\r\n" "\n" content2 "${content2}")
+    string(STRIP "${content2}" content2)
 
-# Uninstall target define.
-if(NOT TARGET uninstall)
-    configure_file(
-        "${auxdir}/uninstall.cmake.in"
-        "${outdir}/uninstall.cmake"
-        IMMEDIATE @ONLY )
-    add_custom_target(uninstall
-        COMMAND ${CMAKE_COMMAND} -P "${outdir}/cmake_uninstall.cmake" )
-endif()
+    # 比较文件内容
+    if(NOT "${content1}" STREQUAL "${content2}")
+        message(FATAL_ERROR "File content difference detected between \"${file1}\" and \"${file2}\".")
+    endif()
+endmacro()
