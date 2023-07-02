@@ -25,6 +25,7 @@ include("${CMAKE_CURRENT_LIST_DIR}/cppp_init.cmake")
 # Other modules.
 include("${auxdir}/visibility.cmake")
 include("${auxdir}/file.cmake")
+include("${auxdir}/library.cmake")
 
 # Uninstall target define.
 if(NOT TARGET uninstall)

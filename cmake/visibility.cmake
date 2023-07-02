@@ -34,17 +34,8 @@ include(CheckCCompilerFlag)
 
 macro(check_have_visibility)
     if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
-        # First, check whether -Werror can be added to the command line, or whether it leads to an error because of some other option that the user has put into $CC $CFLAGS $CPPFLAGS.
-        check_c_compiler_flag("-Werror" HAVE_WERROR)
-        
-        # Now check whether visibility declarations are supported.
-        check_c_compiler_flag("-fvisibility=hidden" HAVE_VISIBILITY)
-        
-        if(HAVE_WERROR AND HAVE_VISIBILITY)
-            add_compile_options("-fvisibility=hidden")
-        endif()
+        check_c_compiler_flag("-fvisibility=default" HAVE_VISIBILITY)
     else()
-        set(HAVE_WERROR 0)
         set(HAVE_VISIBILITY 0)
     endif()
 endmacro()

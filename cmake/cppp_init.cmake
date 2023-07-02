@@ -47,6 +47,9 @@ set(output_testsdir "${outdir}/tests")
 # Manual output directory on Unix or *nix OS.
 set(output_mandir "${outdir}/man")
 
+# Install pdb output directory.
+set(output_pdbdir "${outdir}/pdb")
+
 # -------------------------------------------------- Install Directories
 
 # Install prefix.
@@ -64,7 +67,7 @@ else()
     set(install_shareddir "${install_prefix}/lib")
 endif()
 
-# Install static output directory.
+# Install static library output directory.
 set(install_staticdir "${install_prefix}/lib")
 
 # Install include directory.
