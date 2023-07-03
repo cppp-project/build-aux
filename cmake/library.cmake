@@ -20,9 +20,14 @@
 # C++ Plus library utils for CMake
 
 # Build library
-macro(cppp_build_library name sources enable_shared enable_static)
+macro(cppp_build_library name sources enable_shared enable_static resource_file)
     if(${enable_shared})
-        add_library(lib${name}.shared SHARED ${sources})
+        if(MSVC)
+            set(RCFILE "${resource_file}")
+        else()
+            set(RCFILE "")
+        endif()
+        add_library(lib${name}.shared SHARED ${sources} "${RCFILE}")
         set_target_properties(lib${name}.shared PROPERTIES
             OUTPUT_NAME ${name}
             ARCHIVE_OUTPUT_DIRECTORY "${output_staticddir}"
