@@ -1,5 +1,11 @@
 # CMake build files
 build/
+cmake_install.cmake
+Makefile
+uninstall.cmake
+CMakeCache.txt
+cmake.check_cache
+CMakeFiles
 
 # Patterns for all subdirectories: all kinds of automatic backup files.
 *.orig
