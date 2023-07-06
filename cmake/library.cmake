@@ -40,7 +40,7 @@ macro(cppp_build_library name sources enable_shared enable_static resource_file)
         add_library(lib${name}.static STATIC ${sources})
         set_target_properties(lib${name}.static PROPERTIES
             OUTPUT_NAME ${name}
-            ARCHIVE_OUTPUT_DIRECTORY "${output_staticddir}"
+            ARCHIVE_OUTPUT_DIRECTORY "${output_staticdir}"
             RUNTIME_OUTPUT_DIRECTORY "${output_bindir}"
             LIBRARY_OUTPUT_DIRECTORY "${output_shareddir}"
             PDB_OUTPUT_DIRECTORY "${output_pdbdir}"
