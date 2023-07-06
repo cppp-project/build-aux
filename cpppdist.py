@@ -80,7 +80,7 @@ class Package:
             os.chdir(fwd)
             if(os.path.exists(dest)):
                 shutil.rmtree(dest)
-            print(f"Copying package '{self.name}' to '{dest}' ... ", file=sys.stderr)
+            print(f"Copy package '{self.name}' to '{dest}' ... ", file=sys.stderr)
             progressbar = ProgressBar(len(self.filelist))
             for file in self.filelist:
                 relpath = os.path.relpath(file, fwd)
