@@ -30,7 +30,7 @@ macro(cppp_file_compare file1 file2)
     string(REPLACE "\r\n" "\n" content2 "${content2}")
     string(STRIP "${content2}" content2)
 
-    # 比较文件内容
+    # Compare file contents
     if(NOT "${content1}" STREQUAL "${content2}")
         message(FATAL_ERROR "File content difference detected between \"${file1}\" and \"${file2}\".")
     endif()
