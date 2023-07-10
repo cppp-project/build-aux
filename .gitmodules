@@ -1,4 +1,0 @@
-[submodule "util-i18n"]
-	path = util-i18n
-	url = https://github.com/cppp-project/util-i18n.git
-#	url = git@github.com:cppp-project/util-i18n.git

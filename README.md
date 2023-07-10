@@ -1,2 +1,2 @@
 # Build-aux for C++ Plus
-Common C++ Plus build scripts for autoconf build, cmake build, or other operations.
+Common C++ Plus build aux scripts for CMake build, or other operations.

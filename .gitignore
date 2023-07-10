@@ -1,19 +1,22 @@
-# Auto update temps
-*.old
-automake/
-libtool/
-
-# Dist directory
-build-aux-*
-
-# Autoconf build temp
-autom4te.cache
-
-# Configure files
-config.log
-config.status
-configure
-Makefile
-
-# CMake build temp
+# CMake build files
 build/
+cmake_install.cmake
+Makefile
+uninstall.cmake
+CMakeCache.txt
+cmake.check_cache
+CMakeFiles
+
+# Patterns for all subdirectories: all kinds of automatic backup files.
+*.orig
+*.rej
+*~
+*.kate-swp
+*.swp
+.#*
+\#*#
+.vscode
+
+# Dist directory and temps
+build-aux-v*
+__pycache__
