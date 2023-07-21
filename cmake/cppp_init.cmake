@@ -14,7 +14,7 @@
 # Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public License
-# along with the build-aux; see the file COPYING.LIB.  If not,
+# along with the build-aux; see the file COPYING.  If not,
 # see <https://www.gnu.org/licenses/>.
 
 # C++ Plus CMake build script init part.

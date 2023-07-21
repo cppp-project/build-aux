@@ -12,7 +12,7 @@
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with the build-aux Library; see the file COPYING.LIB.
+# along with the build-aux Library; see the file COPYING.
 # If not, see <https://www.gnu.org/licenses/>.
 
 cmake_minimum_required(VERSION 3.1)

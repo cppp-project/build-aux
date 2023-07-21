@@ -1,8 +1,13 @@
-2023-7-3	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
+2023-07-21	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
+
+	Fix ChangeLog datetime format.
+	Replace `COPYING.LIB` to `COPYING` in files.
+
+2023-07-3	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 
 	Add C++ Plus dist utils
 
-2023-6-29	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
+2023-06-29	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 
 	Add ChangeLog.
 	Remove autoconf buildsystem support.
