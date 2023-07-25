@@ -23,6 +23,10 @@
    License along with the build-aux library; see the file COPYING.
    If not, see <https://www.gnu.org/licenses/>.  */
 
+#if _MSC_VER >= 1600 
+#pragma execution_character_set("utf-8") 
+#endif
+
 #include "langmap.hpp"
 
 #include <iostream>

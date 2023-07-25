@@ -4,6 +4,7 @@
 	Add C++ Plus CMake modules linker.
 	Remove autoupdate GitHub CI.
 	Add MSVC support.
+	Add MSVC 'execution_character_set'.
 
 2023-07-21	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 
