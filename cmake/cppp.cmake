@@ -26,10 +26,11 @@ include("${CMAKE_CURRENT_LIST_DIR}/cppp_init.cmake")
 include("${auxdir}/visibility.cmake")
 include("${auxdir}/file.cmake")
 include("${auxdir}/library.cmake")
-include("${auxdir}/modules.cmake")
 include("${auxdir}/cppp_msvcsupport.cmake")
 include("${auxdir}/locale.cmake")
 
+# Add module
+include("${auxdir}/modules.cmake")
 
 # Uninstall target define.
 if(NOT TARGET uninstall)

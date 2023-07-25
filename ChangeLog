@@ -1,6 +1,7 @@
 2023-07-26	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 
 	Add locale support.
+	Add CMake macro 'cppp_nls_autotranslate'.
 
 2023-07-25	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 

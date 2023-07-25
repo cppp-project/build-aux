@@ -21,10 +21,11 @@
 
 macro(cppp_import_nls_util path)
     add_subdirectory("${path}")
-    if(NOT TARGET build_nls)
-        add_custom_target(build_nls ALL DEPENDS nls-util/nls-util)
-    endif()
 endmacro()
+
+if(NOT TARGET build_nls)
+    add_custom_target(build_nls ALL DEPENDS nls-util/nls-util)
+endif()
 
 function(cppp_nls_translate file langmap)
     if(MSVC)
@@ -38,3 +39,16 @@ function(cppp_nls_translate file langmap)
                        COMMAND "${NLS_UTIL_EXECUTABLE}" "${file}" "${file}" "${langmap}"
                        COMMENT "Translating \"${file}\" with langmap file \"${langmap}\" ..." )
 endfunction()
+
+macro(cppp_nls_autotranslate file langmaps_directory)
+    set(langmap "${langmaps_directory}/${LOCALE_LANGUAGE}.langmap")
+    if(NOT EXISTS "${langmap}")
+        set(langmap "${langmaps_directory}/en_US.langmap")
+    endif()
+    if(EXISTS "${langmap}")
+        cppp_nls_translate("${file}" "${langmap}")
+    else()
+        # langmap not exist, report a warning
+        message(WARNING "Language map file '${langmap}' is not exist, C++ Plus NLS Auto Translate will not take effect.")
+    endif()
+endmacro()
