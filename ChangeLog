@@ -3,6 +3,7 @@
 	Add NLS Util.
 	Add C++ Plus CMake modules linker.
 	Remove autoupdate GitHub CI.
+	Add MSVC support.
 
 2023-07-21	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 

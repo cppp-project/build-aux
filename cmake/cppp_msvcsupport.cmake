@@ -1,4 +1,4 @@
-# cppp.cmake
+# cppp_msvcsupport.cmake
 
 # Copyright (C) 2023 The C++ Plus Project.
 # This file is part of the build-aux library.
@@ -17,24 +17,15 @@
 # along with the build-aux; see the file COPYING.  If not,
 # see <https://www.gnu.org/licenses/>.
 
-# C++ Plus CMake build script.
+# C++ Plus MSVC support.
+if(MSVC)
+    # Enable this extention only on MSVC toolchain.
+    include(CheckCXXCompilerFlag)
 
-# Include init.
-include("${CMAKE_CURRENT_LIST_DIR}/cppp_init.cmake")
+    # Checking for the MSVC is support '/utf-8' option.
+    check_cxx_compiler_flag("/utf-8" COMPILER_SUPPORTS_UTF8)
 
-# Other utils.
-include("${auxdir}/visibility.cmake")
-include("${auxdir}/file.cmake")
-include("${auxdir}/library.cmake")
-include("${auxdir}/modules.cmake")
-include("${auxdir}/cppp_msvcsupport.cmake")
-
-# Uninstall target define.
-if(NOT TARGET uninstall)
-    configure_file(
-        "${auxdir}/uninstall.cmake.in"
-        "${outdir}/uninstall.cmake"
-        IMMEDIATE @ONLY )
-    add_custom_target(uninstall
-        COMMAND ${CMAKE_COMMAND} -P "${outdir}/cmake_uninstall.cmake" )
+    if(COMPILER_SUPPORTS_UTF8)
+        add_compile_options(/utf-8)
+    endif()
 endif()
