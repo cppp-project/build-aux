@@ -1,3 +1,5 @@
+# nls-util.cmake
+
 # Copyright (C) 2023 The C++ Plus Project.
 # This file is part of the build-aux Library.
 #
@@ -15,17 +17,24 @@
 # along with the build-aux Library; see the file COPYING.
 # If not, see <https://www.gnu.org/licenses/>.
 
-cmake_minimum_required(VERSION 3.5)
-project(build-aux LANGUAGES C CXX
-        VERSION 1.0.0
-        DESCRIPTION "C++ Plus build-aux package"
-        HOMEPAGE_URL "https://github.com/cppp-project/build-aux" )
+# Import C++ Plus NLS Util to CMake Build
 
-include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/cppp.cmake")
-cppp_import_nls_util("${srcdir}/nls-util")
+macro(cppp_import_nls_util path)
+    add_subdirectory("${path}")
+    if(NOT TARGET build_nls)
+        add_custom_target(build_nls ALL DEPENDS nls-util/nls-util)
+    endif()
+endmacro()
 
-cppp_nls_translate("${srcdir}/a" "${srcdir}/test.lang")
-cppp_nls_translate("${srcdir}/a" "${srcdir}/test.lang")
-cppp_nls_translate("${srcdir}/a" "${srcdir}/test.lang")
-cppp_nls_translate("${srcdir}/a" "${srcdir}/test.lang")
-cppp_nls_translate("${srcdir}/a" "${srcdir}/test.lang")
+function(cppp_nls_translate file langmap)
+    if(MSVC)
+        set(MSVC_BUILDTYPE_PATH "${CMAKE_BUILD_TYPE}/")
+    else()
+        set(MSVC_BUILDTYPE_PATH "")
+    endif()
+    set(NLS_UTIL_EXECUTABLE "${CMAKE_BINARY_DIR}/nls-util/bin/${MSVC_BUILDTYPE_PATH}nls-util")
+
+    add_custom_command(TARGET build_nls POST_BUILD
+                       COMMAND "${NLS_UTIL_EXECUTABLE}" "${file}" "${file}" "${langmap}"
+                       COMMENT "Translating \"${file}\" with langmap file \"${langmap}\" ..." )
+endfunction()
