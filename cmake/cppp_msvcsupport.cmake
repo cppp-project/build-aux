@@ -28,4 +28,14 @@ if(MSVC)
     if(COMPILER_SUPPORTS_UTF8)
         add_compile_options(/utf-8)
     endif()
+    
+    # If CMAKE_BUILD_TYPE is null, set it to Debug
+    if(NOT CMAKE_DEFAULT_BUILD_TYPE)
+        set(CMAKE_DEFAULT_BUILD_TYPE "Debug")
+    endif()
+
+    # If CMAKE_BUILD_TYPE is null, set it to CMAKE_DEFAULT_BUILD_TYPE
+    if(NOT CMAKE_BUILD_TYPE)
+        set(CMAKE_BUILD_TYPE "${CMAKE_DEFAULT_BUILD_TYPE}")
+    endif()
 endif()

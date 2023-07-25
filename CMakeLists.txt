@@ -23,9 +23,3 @@ project(build-aux LANGUAGES C CXX
 
 include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/cppp.cmake")
 cppp_import_nls_util("${srcdir}/nls-util")
-
-cppp_nls_translate("${srcdir}/a" "${srcdir}/test.lang")
-cppp_nls_translate("${srcdir}/a" "${srcdir}/test.lang")
-cppp_nls_translate("${srcdir}/a" "${srcdir}/test.lang")
-cppp_nls_translate("${srcdir}/a" "${srcdir}/test.lang")
-cppp_nls_translate("${srcdir}/a" "${srcdir}/test.lang")

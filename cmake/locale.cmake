@@ -1,4 +1,4 @@
-# cppp.cmake
+# locale.cmake
 
 # Copyright (C) 2023 The C++ Plus Project.
 # This file is part of the build-aux library.
@@ -17,26 +17,25 @@
 # along with the build-aux; see the file COPYING.  If not,
 # see <https://www.gnu.org/licenses/>.
 
-# C++ Plus CMake build script.
+# Get locale infomation.
 
-# Include init.
-include("${CMAKE_CURRENT_LIST_DIR}/cppp_init.cmake")
+set(input_string "zh_CN.UTF-8")
 
-# Other utils.
-include("${auxdir}/visibility.cmake")
-include("${auxdir}/file.cmake")
-include("${auxdir}/library.cmake")
-include("${auxdir}/modules.cmake")
-include("${auxdir}/cppp_msvcsupport.cmake")
-include("${auxdir}/locale.cmake")
+string(REGEX MATCH ".*\\." LOCALE_LANGUAGE "$ENV{LANG}")
+string(REGEX MATCH "\\..*" LOCALE_CHARSET "$ENV{LANG}")
 
+string(REPLACE "." "" LOCALE_LANGUAGE "${LOCALE_LANGUAGE}")
+string(REPLACE "." "" LOCALE_CHARSET "${LOCALE_CHARSET}")
 
-# Uninstall target define.
-if(NOT TARGET uninstall)
-    configure_file(
-        "${auxdir}/uninstall.cmake.in"
-        "${outdir}/uninstall.cmake"
-        IMMEDIATE @ONLY )
-    add_custom_target(uninstall
-        COMMAND ${CMAKE_COMMAND} -P "${outdir}/cmake_uninstall.cmake" )
+# If locale is invaild, set it to default.
+if(NOT LOCALE_LANGUAGE AND NOT LOCALE_CHARSET)
+    message(WARNING "Environment $LANG('$ENV{LANG}') is invaild, vaild format is like 'en_US.UTF-8'")    
 endif()
+if(NOT LOCALE_LANGUAGE)
+    set(LOCALE_LANGUAGE "en_US")
+endif()
+if(NOT LOCALE_CHARSET)
+    set(LOCALE_CHARSET "UTF-8")
+endif()
+
+message(STATUS "Detected locale language: '${LOCALE_LANGUAGE}', charset: '${LOCALE_CHARSET}'")
