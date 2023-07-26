@@ -16,10 +16,12 @@
 # If not, see <https://www.gnu.org/licenses/>.
 
 cmake_minimum_required(VERSION 3.5)
-project(build-aux LANGUAGES C CXX
-        VERSION 1.0.0
-        DESCRIPTION "C++ Plus build-aux package"
+project(nls-util LANGUAGES CXX
+        VERSION 0.0.1
+        DESCRIPTION "C++ Plus NLS util."
         HOMEPAGE_URL "https://github.com/cppp-project/build-aux" )
 
-include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/cppp.cmake")
-cppp_import_nls_util("${srcdir}/nls-util")
+include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
+add_executable(nls-util "${CMAKE_CURRENT_SOURCE_DIR}/src/nls-util.cpp" )
+set_target_properties(nls-util PROPERTIES
+                      RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin" )

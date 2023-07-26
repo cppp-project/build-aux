@@ -25,6 +25,9 @@ set(srcdir "${CMAKE_CURRENT_SOURCE_DIR}")
 # C++ Plus build-aux directory.
 set(auxdir "${CMAKE_CURRENT_LIST_DIR}")
 
+# C++ Plus modules directory.
+set(moduledir "${auxdir}/../modules")
+
 # -------------------------------------------------- Output Directories 
 # Output directory.
 set(outdir "${CMAKE_BINARY_DIR}")

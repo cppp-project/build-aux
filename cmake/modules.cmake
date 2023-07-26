@@ -1,4 +1,4 @@
-# cppp.cmake
+# modules.cmake
 
 # Copyright (C) 2023 The C++ Plus Project.
 # This file is part of the build-aux library.
@@ -17,27 +17,6 @@
 # along with the build-aux; see the file COPYING.  If not,
 # see <https://www.gnu.org/licenses/>.
 
-# C++ Plus CMake build script.
+# Import C++ Plus Modules for CMake Build
 
-# Include init.
-include("${CMAKE_CURRENT_LIST_DIR}/cppp_init.cmake")
-
-# Other utils.
-include("${auxdir}/visibility.cmake")
-include("${auxdir}/file.cmake")
-include("${auxdir}/library.cmake")
-include("${auxdir}/cppp_msvcsupport.cmake")
-include("${auxdir}/locale.cmake")
-
-# Add module
-include("${auxdir}/modules.cmake")
-
-# Uninstall target define.
-if(NOT TARGET uninstall)
-    configure_file(
-        "${auxdir}/uninstall.cmake.in"
-        "${outdir}/uninstall.cmake"
-        IMMEDIATE @ONLY )
-    add_custom_target(uninstall
-        COMMAND ${CMAKE_COMMAND} -P "${outdir}/cmake_uninstall.cmake" )
-endif()
+include("${moduledir}/nls-util.cmake")
