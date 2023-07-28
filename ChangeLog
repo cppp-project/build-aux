@@ -1,3 +1,8 @@
+2023-07-28	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
+
+	Use C source code to get locale infomation.
+	Support using Win32 API to get locale infomation on Native Windows.
+
 2023-07-26	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 
 	Add locale support.

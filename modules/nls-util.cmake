@@ -41,7 +41,7 @@ function(cppp_nls_translate file langmap)
 endfunction()
 
 macro(cppp_nls_autotranslate file langmaps_directory)
-    set(langmap "${langmaps_directory}/${LOCALE_LANGUAGE}.langmap")
+    set(langmap "${langmaps_directory}/${LOCALE_LANGUAGE_NAME}.langmap")
     if(NOT EXISTS "${langmap}")
         set(langmap "${langmaps_directory}/en_US.langmap")
     endif()

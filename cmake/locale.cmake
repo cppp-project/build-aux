@@ -19,23 +19,16 @@
 
 # Get locale infomation.
 
-set(input_string "zh_CN.UTF-8")
+if(NOT DEFINED LOCALE_LANGUAGE_NAME)
+    try_run(RUN_RESULT COMPILE_RESULT_VAR
+        ${output_bindir} "${auxdir}/../tools/getlocale.cpp"
+        RUN_OUTPUT_VARIABLE LOCALE_LANGUAGE_NAME )
+    unset(COMPILE_RESULT_VAR)
 
-string(REGEX MATCH ".*\\." LOCALE_LANGUAGE "$ENV{LANG}")
-string(REGEX MATCH "\\..*" LOCALE_CHARSET "$ENV{LANG}")
+    if(NOT RUN_RESULT EQUAL 0)
+        set(LOCALE_LANGUAGE_NAME "en_US")
+    endif()
+    unset(RUN_RESULT)
 
-string(REPLACE "." "" LOCALE_LANGUAGE "${LOCALE_LANGUAGE}")
-string(REPLACE "." "" LOCALE_CHARSET "${LOCALE_CHARSET}")
-
-# If locale is invaild, set it to default.
-if(NOT LOCALE_LANGUAGE AND NOT LOCALE_CHARSET)
-    message(WARNING "Environment $LANG('$ENV{LANG}') is invaild, vaild format is like 'en_US.UTF-8'")    
+    message(STATUS "Detected locale language: '${LOCALE_LANGUAGE_NAME}'")
 endif()
-if(NOT LOCALE_LANGUAGE)
-    set(LOCALE_LANGUAGE "en_US")
-endif()
-if(NOT LOCALE_CHARSET)
-    set(LOCALE_CHARSET "UTF-8")
-endif()
-
-message(STATUS "Detected locale language: '${LOCALE_LANGUAGE}', charset: '${LOCALE_CHARSET}'")

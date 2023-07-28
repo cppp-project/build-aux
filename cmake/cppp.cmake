@@ -19,25 +19,29 @@
 
 # C++ Plus CMake build script.
 
-# Include init.
-include("${CMAKE_CURRENT_LIST_DIR}/cppp_init.cmake")
+if(NOT DEFINED CPPP_BUILD_AUX_INCLUDED)
+    set(CPPP_BUILD_AUX_INCLUDED TRUE)
 
-# Other utils.
-include("${auxdir}/visibility.cmake")
-include("${auxdir}/file.cmake")
-include("${auxdir}/library.cmake")
-include("${auxdir}/cppp_msvcsupport.cmake")
-include("${auxdir}/locale.cmake")
+    # Include init.
+    include("${CMAKE_CURRENT_LIST_DIR}/cppp_init.cmake")
 
-# Add module
-include("${auxdir}/modules.cmake")
+    # Other utils.
+    include("${auxdir}/visibility.cmake")
+    include("${auxdir}/file.cmake")
+    include("${auxdir}/library.cmake")
+    include("${auxdir}/cppp_msvcsupport.cmake")
+    include("${auxdir}/locale.cmake")
 
-# Uninstall target define.
-if(NOT TARGET uninstall)
-    configure_file(
-        "${auxdir}/uninstall.cmake.in"
-        "${outdir}/uninstall.cmake"
-        IMMEDIATE @ONLY )
-    add_custom_target(uninstall
-        COMMAND ${CMAKE_COMMAND} -P "${outdir}/cmake_uninstall.cmake" )
+    # Add module
+    include("${auxdir}/modules.cmake")
+
+    # Uninstall target define.
+    if(NOT TARGET uninstall)
+        configure_file(
+            "${auxdir}/uninstall.cmake.in"
+            "${outdir}/uninstall.cmake"
+            IMMEDIATE @ONLY )
+        add_custom_target(uninstall
+            COMMAND ${CMAKE_COMMAND} -P "${outdir}/cmake_uninstall.cmake" )
+    endif()
 endif()

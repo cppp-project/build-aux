@@ -16,5 +16,6 @@ cmake/visibility.cmake
 cmake/cppp_init.cmake
 cmake/library.cmake
 cmake/locale.cmake
+tools/getlocale.cpp
 ChangeLog
 COPYING
