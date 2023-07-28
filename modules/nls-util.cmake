@@ -23,8 +23,8 @@ macro(cppp_import_nls_util path)
     add_subdirectory("${path}")
 endmacro()
 
-if(NOT TARGET build_nls)
-    add_custom_target(build_nls ALL DEPENDS nls-util/nls-util)
+if(NOT TARGET build_nls_${PROJECT_NAME})
+    add_custom_target(build_nls_${PROJECT_NAME} ALL DEPENDS nls-util/nls-util)
 endif()
 
 function(cppp_nls_translate file langmap)
@@ -34,9 +34,8 @@ function(cppp_nls_translate file langmap)
         set(MSVC_BUILDTYPE_PATH "")
     endif()
     set(NLS_UTIL_EXECUTABLE "${CMAKE_BINARY_DIR}/nls-util/bin/${MSVC_BUILDTYPE_PATH}nls-util")
-
-    add_custom_command(TARGET build_nls POST_BUILD
-                       COMMAND "${NLS_UTIL_EXECUTABLE}" "${file}" "${file}" "${langmap}"
+    add_custom_command(TARGET build_nls_${PROJECT_NAME} POST_BUILD
+                       COMMAND $<TARGET_FILE:nls-util> "${file}" "${file}" "${langmap}"
                        COMMENT "Translating \"${file}\" with langmap file \"${langmap}\" ..." )
 endfunction()
 

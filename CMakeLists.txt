@@ -22,4 +22,4 @@ project(build-aux LANGUAGES C CXX
         HOMEPAGE_URL "https://github.com/cppp-project/build-aux" )
 
 include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/cppp.cmake")
-cppp_import_nls_util("${srcdir}/nls-util")
+cppp_import_nls_util("${auxdir}/../nls-util")
