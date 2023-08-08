@@ -38,8 +38,8 @@ if(NOT DEFINED CPPP_BUILD_AUX_INCLUDED)
     # Uninstall target define.
     if(NOT TARGET uninstall)
         configure_file(
-            "${auxdir}/uninstall.cmake.in"
-            "${outdir}/uninstall.cmake"
+            "${auxdir}/cmake_uninstall.cmake.in"
+            "${outdir}/cmake_uninstall.cmake"
             IMMEDIATE @ONLY )
         add_custom_target(uninstall
             COMMAND ${CMAKE_COMMAND} -P "${outdir}/cmake_uninstall.cmake" )
