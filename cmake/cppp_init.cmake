@@ -23,10 +23,10 @@
 set(srcdir "${CMAKE_CURRENT_SOURCE_DIR}")
 
 # C++ Plus build-aux directory.
-set(auxdir "${CMAKE_CURRENT_LIST_DIR}")
+set(cmakeaux_dir "${CMAKE_CURRENT_LIST_DIR}")
 
 # C++ Plus modules directory.
-set(moduledir "${auxdir}/../modules")
+set(moduledir "${cmakeaux_dir}/../modules")
 
 # -------------------------------------------------- Output Directories 
 # Output directory.

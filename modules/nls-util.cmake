@@ -35,7 +35,7 @@ function(cppp_nls_translate file langmap)
     endif()
     set(NLS_UTIL_EXECUTABLE "${CMAKE_BINARY_DIR}/nls-util/bin/${MSVC_BUILDTYPE_PATH}nls-util")
     add_custom_command(TARGET build_nls_${PROJECT_NAME} POST_BUILD
-                       COMMAND $<TARGET_FILE:nls-util> "${file}" "${file}" "${langmap}"
+                       COMMAND "$<TARGET_FILE:nls-util>" "${file}" "${file}" "${langmap}"
                        COMMENT "Translating \"${file}\" with langmap file \"${langmap}\" ..." )
 endfunction()
 

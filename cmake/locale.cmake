@@ -21,7 +21,7 @@
 
 if(NOT DEFINED LOCALE_LANGUAGE_NAME)
     try_run(RUN_RESULT COMPILE_RESULT_VAR
-        ${output_bindir} "${auxdir}/../tools/getlocale.cpp"
+        ${output_bindir} "${cmakeaux_dir}/../tools/getlocale.cpp"
         RUN_OUTPUT_VARIABLE LOCALE_LANGUAGE_NAME )
     unset(COMPILE_RESULT_VAR)
 

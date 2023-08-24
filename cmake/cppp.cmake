@@ -26,19 +26,19 @@ if(NOT DEFINED CPPP_BUILD_AUX_INCLUDED)
     include("${CMAKE_CURRENT_LIST_DIR}/cppp_init.cmake")
 
     # Other utils.
-    include("${auxdir}/visibility.cmake")
-    include("${auxdir}/file.cmake")
-    include("${auxdir}/library.cmake")
-    include("${auxdir}/cppp_msvcsupport.cmake")
-    include("${auxdir}/locale.cmake")
+    include("${cmakeaux_dir}/visibility.cmake")
+    include("${cmakeaux_dir}/file.cmake")
+    include("${cmakeaux_dir}/library.cmake")
+    include("${cmakeaux_dir}/cppp_msvcsupport.cmake")
+    include("${cmakeaux_dir}/locale.cmake")
 
     # Add module
-    include("${auxdir}/modules.cmake")
+    include("${cmakeaux_dir}/modules.cmake")
 
     # Uninstall target define.
     if(NOT TARGET uninstall)
         configure_file(
-            "${auxdir}/cmake_uninstall.cmake.in"
+            "${cmakeaux_dir}/cmake_uninstall.cmake.in"
             "${outdir}/cmake_uninstall.cmake"
             IMMEDIATE @ONLY )
         add_custom_target(uninstall
