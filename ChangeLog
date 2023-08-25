@@ -1,6 +1,7 @@
 2023-08-25	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 
 	Remove '${srcdir}' '${outdir}'.
+	Add cppp-platform package.
 
 2023-08-24	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 
