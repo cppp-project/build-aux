@@ -19,9 +19,6 @@
 
 # C++ Plus CMake build script init part.
 
-# Current source directory.
-set(srcdir "${CMAKE_CURRENT_SOURCE_DIR}")
-
 # C++ Plus build-aux directory.
 set(cmakeaux_dir "${CMAKE_CURRENT_LIST_DIR}")
 
@@ -29,29 +26,27 @@ set(cmakeaux_dir "${CMAKE_CURRENT_LIST_DIR}")
 set(moduledir "${cmakeaux_dir}/../modules")
 
 # -------------------------------------------------- Output Directories 
-# Output directory.
-set(outdir "${CMAKE_BINARY_DIR}")
 
 # Binary runtime output directory.
-set(output_bindir "${outdir}/bin")
+set(output_bindir "${CMAKE_BINARY_DIR}/bin")
 
 # Shared library output directory.
-set(output_shareddir "${outdir}/lib")
+set(output_shareddir "${CMAKE_BINARY_DIR}/lib")
 
 # Static library output directory.
-set(output_staticdir "${outdir}/lib")
+set(output_staticdir "${CMAKE_BINARY_DIR}/lib")
 
 # Include output directory.
-set(output_includedir "${outdir}/include")
+set(output_includedir "${CMAKE_BINARY_DIR}/include")
 
 # Test suite output directory.
-set(output_testsdir "${outdir}/tests")
+set(output_testsdir "${CMAKE_BINARY_DIR}/tests")
 
 # Manual output directory on Unix or *nix OS.
-set(output_mandir "${outdir}/man")
+set(output_mandir "${CMAKE_BINARY_DIR}/man")
 
 # Install pdb output directory.
-set(output_pdbdir "${outdir}/pdb")
+set(output_pdbdir "${CMAKE_BINARY_DIR}/pdb")
 
 # -------------------------------------------------- Install Directories
 

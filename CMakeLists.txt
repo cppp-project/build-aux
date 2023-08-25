@@ -23,5 +23,7 @@ project(build-aux LANGUAGES C CXX
 
 include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/cppp.cmake")
 
+cppp_init_nls_util()
+
 # Import NLS Util.
-add_subdirectory("${cmakeaux_dir}/../nls-util")
+cppp_import_nls_util("${cmakeaux_dir}/../nls-util")
