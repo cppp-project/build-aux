@@ -1,6 +1,7 @@
 README.md
 FILELIST
 modules/nls-util.cmake
+modules/cppp-platform.cmake
 cpppdist.py
 CMakeLists.txt
 CPPPPKG
