@@ -25,3 +25,6 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/src")
 add_executable(nls-util "${CMAKE_CURRENT_SOURCE_DIR}/src/nls-util.cpp" )
 set_target_properties(nls-util PROPERTIES
                       RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin" )
+
+install(TARGETS nls-util
+        )

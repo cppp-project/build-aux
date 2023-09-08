@@ -1,3 +1,7 @@
+2023-09-09	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
+
+	Fix bugs caused by 'nls-util' when cross-compiling.
+
 2023-08-25	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 
 	Remove '${srcdir}' '${outdir}'.
