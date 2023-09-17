@@ -1,3 +1,7 @@
+2023-09-17	LYF511        <61766249+LYF511@users.noreply.github.com>
+
+	Update nls-util rewritten in Python.
+
 2023-09-09	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 
 	Fix bugs caused by 'nls-util' when cross-compiling.
