@@ -1,6 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # -*- mode: python -*-
+# vi: set ft=python :
+
 
 """
 C++ Plus NLS Util
@@ -21,6 +23,17 @@ General Public License for more details.
 You should have received a copy of the GNU General Public
 License along with the build-aux library; see the file COPYING.
 If not, see <https://www.gnu.org/licenses/>.
+"""
+
+__all__ = ["readall", "writeall", "load_file", "list_messages", "get_message", "main"]
+__author__ = "LYF511, ChenPi11, The C++ Plus Project"
+__license__ = "GPL-3.0-or-later"
+__version__ = "0.0.1"
+__maintainer__ = "ChenPi11"
+__doc__ = \
+"""
+C++ Plus NLS Util
+Read, get and replace messages in a cppp language map file.
 """
 
 import sys
@@ -101,13 +114,14 @@ def load_file(path, domain):
                         content_buffer += (b"\n" + line) if content_buffer else line
                 else:  # Syntax error?
                     sys.stderr.write(
-                        f"WARNING: {path}:{line_count} : Syntax error in this line.\n"
+                        "WARNING: " + path + ":" + str(line_count) +
+                            " : Syntax error in this line.\n"
                         )
 
     if status:
         sys.stderr.write("WARNING: A token never closed.\n")
 
-    sys.stderr.write(f"{path}: Loaded {loaded_count} messages.\n")
+    sys.stderr.write(path + ": Loaded " + str(loaded_count) + " messages.\n")
     return messages
 
 def list_messages(messages, domain):
@@ -144,12 +158,12 @@ def get_message(messages, key, domain, default_value=""):
     """
 
     if domain not in messages:
-        raise ValueError(f"Invalid domain '{domain}'")
+        raise ValueError("Invalid domain '" + domain + "'")
 
     domain_unit = messages[domain]
     if key not in domain_unit:
         if not default_value:
-            raise ValueError(f"Invalid key '{key}'")
+            raise ValueError("Invalid key '" + key + "'")
         return default_value
     else:
         return domain_unit[key]
@@ -169,9 +183,9 @@ def main(argv):
         int: Return value.
     """
 
-    # Usage: nls-util.py input-file output-file language-map-file
+    # Usage: nls_util.py input-file output-file language-map-file
     if len(argv) < 4:
-        sys.stderr.write(f"Usage: {argv[0]} input-file output-file language-map-file\n")
+        sys.stderr.write("Usage: " + argv[0] + " input-file output-file language-map-file\n")
         return 1
 
     # Messages pool.
@@ -195,7 +209,9 @@ def main(argv):
     # Write data.
     writeall(output_file_path, data)
 
-    sys.stderr.write(f"{output_file_path}: Successfully replaced {replaced_count} positions.\n")
+    sys.stderr.write(
+        output_file_path + ": Successfully replaced " + str(replaced_count) + " words.\n"
+        )
     return 0
 
 

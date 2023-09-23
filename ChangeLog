@@ -1,3 +1,9 @@
+2023-09-23	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
+
+	Update NLS Util's filename format.
+	Fix a typo in nls_util.py
+	Add Python2 support in NLS Util.
+
 2023-09-17	LYF511        <61766249+LYF511@users.noreply.github.com>
 
 	Update nls-util rewritten in Python.
