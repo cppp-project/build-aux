@@ -1,9 +1,9 @@
 /**
- * @file win32_getlocale.cpp
+ * @file getlocale.cpp
  * @author ChenPi11
- * @brief Get Win32 loclae.
- * @version 0.0.1
- * @date 2023-7-24
+ * @brief Get locale infomations.
+ * @version 0.0.2
+ * @date 2023-9-23
  * @copyright Copyright (C) 2023 The C++ Plus Project
  */
 /* Copyright (C) 2023 The C++ Plus Project.

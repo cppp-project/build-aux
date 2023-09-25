@@ -1,4 +1,4 @@
-# nls-util.cmake
+# nls_util.cmake
 
 # Copyright (C) 2023 The C++ Plus Project.
 # This file is part of the build-aux Library.
@@ -17,28 +17,19 @@
 # along with the build-aux Library; see the file COPYING.
 # If not, see <https://www.gnu.org/licenses/>.
 
-# Import C++ Plus NLS Util to CMake Build
-
-macro(cppp_import_nls_util path)
-    add_subdirectory("${path}")
-endmacro()
 
 function(cppp_init_nls_util)
     if(NOT TARGET build_nls_${PROJECT_NAME})
-        add_custom_target(build_nls_${PROJECT_NAME} ALL DEPENDS build-aux/build-nls-util)
+        add_custom_target(build_nls_${PROJECT_NAME} ALL)
     endif()
+    find_package(Python REQUIRED)
+    
 endfunction()
 
 function(cppp_nls_translate file langmap)
-    if(MSVC)
-        set(MSVC_BUILDTYPE_PATH "${CMAKE_BUILD_TYPE}/")
-    else()
-        set(MSVC_BUILDTYPE_PATH "")
-    endif()
-    set(NLS_UTIL_EXECUTABLE "${CMAKE_BINARY_DIR}/nls-util/bin/${MSVC_BUILDTYPE_PATH}nls-util")
-
+    find_package(Python REQUIRED)
     add_custom_command(TARGET build_nls_${PROJECT_NAME} POST_BUILD
-                       COMMAND "$<TARGET_FILE:nls-util>" "${file}" "${file}" "${langmap}"
+                       COMMAND "${Python_EXECUTABLE}" "${buildaux_dir}/nls_util/nls_util.py" "${file}" "${file}" "${langmap}"
                        COMMENT "Translating \"${file}\" with langmap file \"${langmap}\" ..." )
 endfunction()
 

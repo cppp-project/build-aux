@@ -22,19 +22,3 @@ project(build-aux LANGUAGES C CXX
         HOMEPAGE_URL "https://github.com/cppp-project/build-aux" )
 
 include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/cppp.cmake")
-
-# Build NLS Util
-set(NLS_UTIL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/nls-util")
-set(NLS_UTIL_BINDIR "${CMAKE_CURRENT_BINARY_DIR}/nls-util-bindir")
-set(NLS_UTIL_INSTDIR "${CMAKE_CURRENT_BINARY_DIR}/nls-util")
-file(MAKE_DIRECTORY "${NLS_UTIL_BINDIR}")
-
-add_custom_target( build-nls-util ALL
-                   COMMAND "${CMAKE_COMMAND}" "${NLS_UTIL_DIR}" "-DCMAKE_INSTALL_PREFIX=\"${NLS_UTIL_INSTDIR}\""
-                   COMMAND "${CMAKE_COMMAND}" "--build" "${NLS_UTIL_BINDIR}" "--config=Release"
-                   COMMAND "${CMAKE_COMMAND}" "--install" "${NLS_UTIL_BINDIR}" "--config=Release"
-                   WORKING_DIRECTORY "${NLS_UTIL_BINDIR}"
-                   COMMENT "Building 'nls-util' ...")
-
-# Import NLS Util.
-cppp_import_nls_util("${cmakeaux_dir}/../nls-util")

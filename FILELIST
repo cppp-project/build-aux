@@ -1,13 +1,11 @@
 README.md
 FILELIST
-modules/nls-util.cmake
+modules/nls_util.cmake
 modules/cppp-platform.cmake
 cpppdist.py
 CMakeLists.txt
 CPPPPKG
-nls-util/src/langmap.hpp
-nls-util/src/nls-util.cpp
-nls-util/CMakeLists.txt
+nls_util/nls_util.py
 cmake/cppp.cmake
 cmake/file.cmake
 cmake/modules.cmake

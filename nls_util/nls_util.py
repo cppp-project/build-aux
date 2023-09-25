@@ -165,8 +165,7 @@ def get_message(messages, key, domain, default_value=""):
         if not default_value:
             raise ValueError("Invalid key '" + key + "'")
         return default_value
-    else:
-        return domain_unit[key]
+    return domain_unit[key]
 
 
 # Main domain, we only used the domain named 'main' for replace files.

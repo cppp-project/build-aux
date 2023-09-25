@@ -19,5 +19,5 @@
 
 # Import C++ Plus Modules for CMake Build
 
-include("${moduledir}/nls-util.cmake")
+include("${moduledir}/nls_util.cmake")
 include("${moduledir}/cppp-platform.cmake")

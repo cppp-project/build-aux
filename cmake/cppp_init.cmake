@@ -19,11 +19,18 @@
 
 # C++ Plus CMake build script init part.
 
-# C++ Plus build-aux directory.
+# C++ Plus cmake build-aux directory.
 set(cmakeaux_dir "${CMAKE_CURRENT_LIST_DIR}")
+
+# C++ Plus build-aux directory.
+set(buildaux_dir "${CMAKE_CURRENT_LIST_DIR}/..")
+# Absolute path of C++ Plus build-aux directory
+get_filename_component(buildaux_dir "${buildaux_dir}" ABSOLUTE)
 
 # C++ Plus modules directory.
 set(moduledir "${cmakeaux_dir}/../modules")
+# Absolute path of C++ Plus modules directory
+get_filename_component(moduledir "${moduledir}" ABSOLUTE)
 
 # -------------------------------------------------- Output Directories 
 
