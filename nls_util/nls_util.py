@@ -91,14 +91,14 @@ def load_file(path, domain):
         lines = file.readlines()
         for line in lines:
             line_count += 1
-            line = line.strip()
+            line = line.replace(b"\n", b"")
 
             if line or status:
                 if (
                     line.startswith(b"#") and not status
                 ):  # Skip notes when it is not in text area.
                     continue
-                elif line == b"'''":
+                if line == b"'''":
                     if status < 2:
                         status += 1
                     else:

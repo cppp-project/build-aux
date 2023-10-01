@@ -1,3 +1,8 @@
+2023-10-01	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
+
+	* nls_util/nls_util.py: Converted from 'CR LF' to 'LF'.
+	Fix a bug in NLS Util.
+
 2023-09-25	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 
 	Add Python for dependency.
