@@ -39,16 +39,16 @@ Read, get and replace messages in a cppp language map file.
 import sys
 
 def readall(file_path):
-    """Read all of the bytes data in a file and return it.
+    """Read all of the str data in a file and return it.
 
     Args:
         file_path (str): The file's path.
 
     Returns:
-        bytes: Data in the file.
+        str: Data in the file.
     """
 
-    with open(file_path, "rb") as file:
+    with open(file_path, "r", encoding="UTF-8") as file:
         file.seek(0)
         return file.read()
 
@@ -58,10 +58,10 @@ def writeall(file_path, data):
 
     Args:
         file_path (str): The file's path.
-        data (bytes): Bytes data.
+        data (str): Data.
     """
 
-    with open(file_path, "wb") as file:
+    with open(file_path, "w", encoding="UTF-8") as file:
         file.seek(0)
         file.write(data)
         file.flush()
@@ -75,43 +75,43 @@ def load_file(path, domain):
         domain (str): The domain you want to save.
 
     Returns:
-        dict[dict[str, bytes]]: Result language map.
+        dict[dict[str, str]]: Result language map.
     """
 
     line_count = 0
     loaded_count = 0
     status = 0  # 0: close, 1: key, 2: content
-    key_buffer = b""
-    content_buffer = b""
+    key_buffer = ""
+    content_buffer = ""
 
     # Result map.
     messages = {}
 
-    with open(path, "rb") as file:
+    with open(path, "r", encoding="UTF-8") as file:
         lines = file.readlines()
         for line in lines:
             line_count += 1
-            line = line.replace(b"\n", b"")
+            line = line.replace("\n", "")
 
             if line or status:
                 if (
-                    line.startswith(b"#") and not status
+                    line.startswith("#") and not status
                 ):  # Skip notes when it is not in text area.
                     continue
-                if line == b"'''":
+                if line == "'''":
                     if status < 2:
                         status += 1
                     else:
                         status = 0
                         messages.setdefault(domain, {})[key_buffer] = content_buffer
-                        key_buffer = b""
-                        content_buffer = b""
+                        key_buffer = ""
+                        content_buffer = ""
                         loaded_count += 1
                 elif status:  # Contents
                     if status == 1:  # Key
-                        key_buffer += (b"\n" + line) if key_buffer else line
+                        key_buffer += ("\n" + line) if key_buffer else line
                     else:  # Content
-                        content_buffer += (b"\n" + line) if content_buffer else line
+                        content_buffer += ("\n" + line) if content_buffer else line
                 else:  # Syntax error?
                     sys.stderr.write(
                         "WARNING: " + path + ":" + str(line_count) +
@@ -132,7 +132,7 @@ def list_messages(messages, domain):
         domain (str): Domain.
 
     Returns:
-        list[bytes]: Result list.
+        list[str]: Result list.
     """
 
     if domain not in messages:
@@ -154,7 +154,7 @@ def get_message(messages, key, domain, default_value=""):
         ValueError: If domain or key invalid.
 
     Returns:
-        byte: Message data.
+        str: Message data.
     """
 
     if domain not in messages:

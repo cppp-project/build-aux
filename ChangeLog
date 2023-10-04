@@ -1,3 +1,7 @@
+2023-10-04	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
+
+	Fix NLS Util bug when translate on Windows.
+
 2023-10-01	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 
 	* nls_util/nls_util.py: Converted from 'CR LF' to 'LF'.
