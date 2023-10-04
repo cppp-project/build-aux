@@ -1,6 +1,9 @@
 2023-10-04	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 
 	Fix NLS Util bug when translate on Windows.
+	Update getlocale rewritten in Python.
+	Modify the GPL version in the copyright statement in the file to 3.
+
 
 2023-10-01	ChenPi11      <wushengwuxi-msctinoulk@outlook.com>
 

@@ -4,31 +4,39 @@
 # This file is part of the build-aux library.
 #
 # The build-aux is free software; you can redistribute it and/or
-# modify it under the terms of the GNU Lesser General Public License as
-# published by the Free Software Foundation; either version 2 of the
+# modify it under the terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 3 of the
 # License, or (at your option) any later version.
 #
 # The build-aux is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# Lesser General Public License for more details.
+# General Public License for more details.
 #
-# You should have received a copy of the GNU Lesser General Public License
+# You should have received a copy of the GNU General Public License
 # along with the build-aux; see the file COPYING.  If not,
 # see <https://www.gnu.org/licenses/>.
 
 # Get locale infomation.
 
 if(NOT DEFINED LOCALE_LANGUAGE_NAME)
-    try_run(RUN_RESULT COMPILE_RESULT_VAR
-        ${output_bindir} "${cmakeaux_dir}/../tools/getlocale.cpp"
-        RUN_OUTPUT_VARIABLE LOCALE_LANGUAGE_NAME )
-    unset(COMPILE_RESULT_VAR)
+    find_package(Python REQUIRED)
 
-    if(NOT RUN_RESULT EQUAL 0)
-        set(LOCALE_LANGUAGE_NAME "en_US")
+    set(LOCALEINFO_OUTPUT_FILE "${CMAKE_BINARY_DIR}/locale_info.txt")
+    if(NOT EXISTS "${LOCALEINFO_OUTPUT_FILE}")
+        execute_process(COMMAND "${Python_EXECUTABLE}" "${buildaux_dir}/tools/getlocale.py"
+                        OUTPUT_FILE "${LOCALEINFO_OUTPUT_FILE}" RESULT_VARIABLE RUN_RESULT)
+        if(NOT RUN_RESULT EQUAL 0)
+            file(WRITE "${LOCALEINFO_OUTPUT_FILE}" "en_US")
+        endif()
+        unset(RUN_RESULT)
+        set(OUTPUT_MESSAGE TRUE)
     endif()
-    unset(RUN_RESULT)
-
-    message(STATUS "Detected locale language: '${LOCALE_LANGUAGE_NAME}'")
+    file(READ "${LOCALEINFO_OUTPUT_FILE}" LOCALE_LANGUAGE_NAME)
+    string(STRIP "${LOCALE_LANGUAGE_NAME}" LOCALE_LANGUAGE_NAME)
+    if(DEFINED OUTPUT_MESSAGE)
+        message(STATUS "Detected locale language: '${LOCALE_LANGUAGE_NAME}'")
+    endif()
+    unset(OUTPUT_MESSAGE)
+    unset(LOCALEINFO_OUTPUT_FILE)
 endif()
