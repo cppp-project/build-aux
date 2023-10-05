@@ -47,10 +47,9 @@ def windows_getlocale():
     LOCALE_NAME_MAX_LENGTH = 85
     import ctypes
     buffer = ctypes.create_unicode_buffer("", LOCALE_NAME_MAX_LENGTH)
-    result = ctypes.windll.kernel32.GetUserDefaultLocaleName(buffer, LOCALE_NAME_MAX_LENGTH)
-    assert result == 0
-    return buffer.replace("-", "_")
-        
+    ctypes.windll.kernel32.GetUserDefaultLocaleName(buffer, LOCALE_NAME_MAX_LENGTH)
+    return buffer.value.replace("-", "_")
+
 def posix_getlocale():
     """Get locale info on POSIX.
 
