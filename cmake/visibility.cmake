@@ -18,8 +18,7 @@
 # see <https://www.gnu.org/licenses/>.
 
 # Tests whether the compiler supports the command-line option
-# -fvisibility=hidden and the function and variable attributes
-# __attribute__((__visibility__("hidden"))) and
+# -fvisibility=default and the function and variable attributes
 # __attribute__((__visibility__("default"))).
 # Does *not* test for __visibility__("protected") - which has tricky
 # semantics (see the 'vismain' test in glibc) and does not exist e.g. on
@@ -31,11 +30,49 @@
 #
 
 include(CheckCCompilerFlag)
+include(CheckCXXCompilerFlag)
 
 macro(check_have_visibility)
-    if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
-        check_c_compiler_flag("-fvisibility=default" HAVE_VISIBILITY)
+    # Checking for -Werror
+    check_c_compiler_flag("-Werror" HAVE_WERROR)
+    if(HAVE_WERROR)
+        set(CHECK_FLAGS "-Werror -fvisibility=default")
+    else()
+        set(CHECK_FLAGS "-fvisibility=default")
+    endif()
+
+    # Step1: Check for -fvisibility=default
+    check_c_compiler_flag("${CHECK_FLAGS}" C_HAVE_VISIBILITY)
+    check_cxx_compiler_flag("${CHECK_FLAGS}" CXX_HAVE_VISIBILITY)
+    if(C_HAVE_VISIBILITY AND CXX_HAVE_VISIBILITY)
+        set(HAVE_VISIBILITY 1)
     else()
         set(HAVE_VISIBILITY 0)
     endif()
+
+    # Step2: Check for __attribute__((__visibility__("default")))
+    if(HAVE_VISIBILITY)
+        check_c_source_compiles("
+            __attribute__((__visibility__(\"default\"))) int foo(void) { return 0; }
+            int main(void) { return 0; }
+        " C_HAVE_ATTRIBUTE_VISIBILITY)
+
+        check_cxx_source_compiles("
+            __attribute__((__visibility__(\"default\"))) int foo(void) { return 0; }
+            int main(void) { return 0; }
+        " CXX_HAVE_ATTRIBUTE_VISIBILITY)
+
+        if(C_HAVE_ATTRIBUTE_VISIBILITY AND CXX_HAVE_ATTRIBUTE_VISIBILITY)
+            set(HAVE_VISIBILITY 1)
+        else()
+            set(HAVE_VISIBILITY 0)
+        endif()
+    endif()
+
+    unset(HAVE_WERROR)
+    unset(CHECK_FLAGS)
+    unset(C_HAVE_VISIBILITY)
+    unset(CXX_HAVE_VISIBILITY)
+    unset(C_HAVE_ATTRIBUTE_VISIBILITY)
+    unset(CXX_HAVE_ATTRIBUTE_VISIBILITY)
 endmacro()
