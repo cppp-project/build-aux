@@ -47,3 +47,34 @@ macro(cppp_build_library name sources enable_shared enable_static resource_file)
             VERSION ${PROJECT_VERSION} )
     endif()
 endmacro()
+
+# Install libraries, but not include files or other files.
+macro(cppp_install_library name)
+    if(TARGET lib${name}.shared)
+        # PERMISSIONS 0755
+        install(TARGETS lib${name}.shared
+            EXPORT lib${name}-export
+            DESTINATION "${install_shareddir}"
+            PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+            LIBRARY DESTINATION "${install_shareddir}"
+            ARCHIVE DESTINATION "${install_staticdir}"
+            RUNTIME DESTINATION "${install_bindir}"
+            INCLUDES DESTINATION "${install_includedir}" )
+    endif()
+    if(TARGET lib${name}.static)
+        # PERMISSIONS 0644
+        install(TARGETS lib${name}.static
+            DESTINATION "${install_staticdir}"
+            PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ
+            LIBRARY DESTINATION "${install_shareddir}"
+            ARCHIVE DESTINATION "${install_staticdir}"
+            RUNTIME DESTINATION "${install_bindir}"
+            INCLUDES DESTINATION "${install_includedir}" )
+            # If we are in non-MSVC enviroment, we need to set the output name of the static library.
+            if(NOT MSVC)
+            # Create symlink to static library.
+                install(CODE 
+                    "execute_process(COMMAND \"${CMAKE_COMMAND}\" -E create_symlink lib${name}.static.a lib${name}.a WORKING_DIRECTORY ${install_staticdir})")
+            endif()
+    endif()
+endmacro()
