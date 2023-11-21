@@ -2,9 +2,9 @@ README.md
 FILELIST
 modules/nls_util.cmake
 modules/cppp-platform.cmake
-cpppdist.py
 CMakeLists.txt
-CPPPPKG
+cppp-repo.json
+repoutils.py
 nls_util/nls_util.py
 cmake/cppp.cmake
 cmake/file.cmake
