@@ -14,29 +14,66 @@
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with the build-aux; see the file COPYING.  If not,
+# along with the build-aux; see the file LICENSE.  If not,
 # see <https://www.gnu.org/licenses/>.
 
-# Get locale infomation.
-
-if(NOT DEFINED LOCALE_LANGUAGE_NAME)
-    find_package(Python REQUIRED)
-
-    set(LOCALEINFO_OUTPUT_FILE "${CMAKE_BINARY_DIR}/locale_info.txt")
-    if(NOT EXISTS "${LOCALEINFO_OUTPUT_FILE}")
-        execute_process(COMMAND "${Python_EXECUTABLE}" "${buildaux_dir}/tools/getlocale.py"
-                        OUTPUT_FILE "${LOCALEINFO_OUTPUT_FILE}" RESULT_VARIABLE RUN_RESULT)
-        if(NOT RUN_RESULT EQUAL 0)
-            file(WRITE "${LOCALEINFO_OUTPUT_FILE}" "en_US")
-        endif()
-        unset(RUN_RESULT)
-        set(OUTPUT_MESSAGE TRUE)
+if(NOT DEFINED LOCALE_LANGUAGE)
+    # Read system environment variable.
+    set(LOCALE_LANGUAGE "$ENV{LANG}")
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LANGUAGE}")
     endif()
-    file(READ "${LOCALEINFO_OUTPUT_FILE}" LOCALE_LANGUAGE_NAME)
-    string(STRIP "${LOCALE_LANGUAGE_NAME}" LOCALE_LANGUAGE_NAME)
-    if(DEFINED OUTPUT_MESSAGE)
-        message(STATUS "Detected locale language: '${LOCALE_LANGUAGE_NAME}'")
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_ALL}")
     endif()
-    unset(OUTPUT_MESSAGE)
-    unset(LOCALEINFO_OUTPUT_FILE)
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_CTYPE}")
+    endif()
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_MESSAGES}")
+    endif()
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_NAME}")
+    endif()
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_IDENTIFICATION}")
+    endif()
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_NUMERIC}")
+    endif()
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_TIME}")
+    endif()
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_COLLATE}")
+    endif()
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_MONETARY}")
+    endif()
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_PAPER}")
+    endif()
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_ADDRESS}")
+    endif()
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_TELEPHONE}")
+    endif()
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "$ENV:{LC_MEASUREMENT}")
+    endif()
+    if (NOT LOCALE_LANGUAGE MATCHES "^[a-z]{2}_[A-Z]{2}\..{*}")
+        set(LOCALE_LANGUAGE "en_US.UTF-8")
+    endif()
+
+    # split language and charset.
+    string(REGEX REPLACE "([a-z]{2}_[A-Z]{2})\\..*" "\\1" LOCALE_LANGUAGE "${LOCALE_LANGUAGE}")
+    string(REGEX REPLACE "[a-z]{2}_[A-Z]{2}\\.(.*)" "\\1" LOCALE_CHARSET "${LOCALE_LANGUAGE}")
+
+    # set language and charset.
+    set(LOCALE_LANGUAGE "${LOCALE_LANGUAGE}" CACHE STRING "Language")
+    set(LOCALE_CHARSET "${LOCALE_CHARSET}" CACHE STRING "Charset")
+
+    message(STATUS "Detected locale language: ${LOCALE_LANGUAGE}")
+    message(STATUS "Detected locale charset: ${LOCALE_CHARSET}")
 endif()

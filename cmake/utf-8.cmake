@@ -1,6 +1,6 @@
-# cppp_msvcsupport.cmake
+# utf-8.cmake
 
-# Copyright (C) 2023 The C++ Plus Project.
+# Copyright (C) 2024 The C++ Plus Project.
 # This file is part of the build-aux library.
 #
 # The build-aux is free software; you can redistribute it and/or
@@ -14,10 +14,9 @@
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with the build-aux; see the file COPYING.  If not,
+# along with the build-aux; see the file LICENSE.  If not,
 # see <https://www.gnu.org/licenses/>.
 
-# C++ Plus MSVC support.
 if(MSVC)
     # Enable this extention only on MSVC toolchain.
     include(CheckCXXCompilerFlag)
@@ -26,7 +25,7 @@ if(MSVC)
     check_cxx_compiler_flag("/utf-8" COMPILER_SUPPORTS_UTF8)
 
     if(COMPILER_SUPPORTS_UTF8)
-        add_compile_options(/utf-8)
+        add_compile_options("/utf-8")
     endif()
 
     # If CMAKE_BUILD_TYPE is null, set it to Debug

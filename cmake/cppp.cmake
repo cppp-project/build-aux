@@ -1,6 +1,6 @@
 # cppp.cmake
 
-# Copyright (C) 2023 The C++ Plus Project.
+# Copyright (C) 2024 The C++ Plus Project.
 # This file is part of the build-aux library.
 #
 # The build-aux is free software; you can redistribute it and/or
@@ -14,7 +14,7 @@
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with the build-aux; see the file COPYING.  If not,
+# along with the build-aux; see the file LICENSE.  If not,
 # see <https://www.gnu.org/licenses/>.
 
 # C++ Plus CMake build script.
@@ -27,13 +27,9 @@ if(NOT DEFINED CPPP_BUILD_AUX_INCLUDED)
 
     # Other utils.
     include("${cmakeaux_dir}/visibility.cmake")
-    include("${cmakeaux_dir}/file.cmake")
     include("${cmakeaux_dir}/library.cmake")
-    include("${cmakeaux_dir}/cppp_msvcsupport.cmake")
+    include("${cmakeaux_dir}/utf-8.cmake")
     include("${cmakeaux_dir}/locale.cmake")
-
-    # Add module
-    include("${cmakeaux_dir}/modules.cmake")
 
     # Uninstall target define.
     if(NOT TARGET uninstall)

@@ -14,7 +14,7 @@
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with the build-aux; see the file COPYING.  If not,
+# along with the build-aux; see the file LICENSE.  If not,
 # see <https://www.gnu.org/licenses/>.
 
 # Tests whether the compiler supports the command-line option
@@ -45,9 +45,9 @@ macro(check_have_visibility)
     check_c_compiler_flag("${CHECK_FLAGS}" C_HAVE_VISIBILITY)
     check_cxx_compiler_flag("${CHECK_FLAGS}" CXX_HAVE_VISIBILITY)
     if(C_HAVE_VISIBILITY AND CXX_HAVE_VISIBILITY)
-        set(HAVE_VISIBILITY 1)
+        set(HAVE_VISIBILITY TRUE)
     else()
-        set(HAVE_VISIBILITY 0)
+        set(HAVE_VISIBILITY FALSE)
     endif()
 
     # Step2: Check for __attribute__((__visibility__("default")))
@@ -63,9 +63,9 @@ macro(check_have_visibility)
         " CXX_HAVE_ATTRIBUTE_VISIBILITY)
 
         if(C_HAVE_ATTRIBUTE_VISIBILITY AND CXX_HAVE_ATTRIBUTE_VISIBILITY)
-            set(HAVE_VISIBILITY 1)
+            set(HAVE_VISIBILITY TRUE)
         else()
-            set(HAVE_VISIBILITY 0)
+            set(HAVE_VISIBILITY FALSE)
         endif()
     endif()
 
