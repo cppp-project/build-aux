@@ -19,6 +19,28 @@
 
 # C++ Plus library utils for CMake
 
+check_have_visibility()
+
+# Import API.
+if(WIN32)
+    set(CPPP_IMPORT_API "__declspec(dllimport)")
+elseif(HAVE_VISIBILITY)
+    set(CPPP_IMPORT_API "__attribute__((visibility(\"default\")))")
+else()
+    set(CPPP_IMPORT_API "")
+endif()
+add_compile_definitions(CPPP_IMPORT_API=${CPPP_IMPORT_API})
+
+# Export API.
+if(WIN32)
+    set(CPPP_EXPORT_API "__declspec(dllexport)")
+elseif(HAVE_VISIBILITY)
+    set(CPPP_EXPORT_API "__attribute__((visibility(\"default\")))")
+else()
+    set(CPPP_EXPORT_API "")
+endif()
+add_compile_definitions(CPPP_EXPORT_API=${CPPP_EXPORT_API})
+
 # Build library
 macro(cppp_build_library name sources enable_shared enable_static resource_file)
     if(${enable_shared})
