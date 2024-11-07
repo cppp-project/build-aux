@@ -49,7 +49,7 @@ macro(cppp_build_library name sources enable_shared enable_static resource_file)
         else()
             set(RCFILE "")
         endif()
-        add_library(lib${name}.shared SHARED ${sources} "${RCFILE}")
+        add_library(lib${name}.shared SHARED ${${sources}} "${RCFILE}")
         set_target_properties(lib${name}.shared PROPERTIES
             OUTPUT_NAME ${name}
             ARCHIVE_OUTPUT_DIRECTORY "${output_staticddir}"
@@ -59,7 +59,7 @@ macro(cppp_build_library name sources enable_shared enable_static resource_file)
             VERSION ${PROJECT_VERSION} )
     endif()
     if(${enable_static})
-        add_library(lib${name}.static STATIC ${sources})
+        add_library(lib${name}.static STATIC ${${sources}})
         set_target_properties(lib${name}.static PROPERTIES
             OUTPUT_NAME ${name}.static
             ARCHIVE_OUTPUT_DIRECTORY "${output_staticdir}"
