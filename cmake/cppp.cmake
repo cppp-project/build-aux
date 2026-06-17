@@ -23,7 +23,7 @@ if(NOT DEFINED CPPP_BUILD_AUX_INCLUDED)
     set(CPPP_BUILD_AUX_INCLUDED TRUE)
 
     # C++ standard
-    set(CMAKE_CXX_STANDARD 20)
+    set(CMAKE_CXX_STANDARD 23)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
     include("${CMAKE_CURRENT_LIST_DIR}/cppp_init.cmake")
