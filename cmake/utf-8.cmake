@@ -1,6 +1,6 @@
 # utf-8.cmake
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024, 2026 The C++ Plus Project.
 # This file is part of the build-aux library.
 #
 # The build-aux is free software; you can redistribute it and/or
@@ -26,10 +26,5 @@ if(MSVC)
 
     if(COMPILER_SUPPORTS_UTF8)
         add_compile_options("/utf-8")
-    endif()
-
-    # If CMAKE_BUILD_TYPE is null, set it to Debug
-    if(NOT CMAKE_BUILD_TYPE)
-        set(CMAKE_BUILD_TYPE "Debug")
     endif()
 endif()

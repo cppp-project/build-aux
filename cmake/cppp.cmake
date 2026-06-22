@@ -1,6 +1,6 @@
 # cppp.cmake
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024, 2026 The C++ Plus Project.
 # This file is part of the build-aux library.
 #
 # The build-aux is free software; you can redistribute it and/or
@@ -32,7 +32,6 @@ if(NOT DEFINED CPPP_BUILD_AUX_INCLUDED)
     include("${cmakeaux_dir}/visibility.cmake")
     include("${cmakeaux_dir}/library.cmake")
     include("${cmakeaux_dir}/utf-8.cmake")
-    include("${cmakeaux_dir}/locale.cmake")
 
     # Uninstall target.
     if(NOT TARGET uninstall)
@@ -42,5 +41,10 @@ if(NOT DEFINED CPPP_BUILD_AUX_INCLUDED)
             IMMEDIATE @ONLY )
         add_custom_target(uninstall
             COMMAND ${CMAKE_COMMAND} -P "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake" )
+    endif()
+
+    # If CMAKE_BUILD_TYPE is null, set it to Debug
+    if(NOT CMAKE_BUILD_TYPE)
+        set(CMAKE_BUILD_TYPE "Debug")
     endif()
 endif()

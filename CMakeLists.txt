@@ -1,4 +1,4 @@
-# Copyright (C) 2023 The C++ Plus Project.
+# Copyright (C) 2023, 2026 The C++ Plus Project.
 # This file is part of the build-aux Library.
 #
 # The build-aux Library is free software; you can redistribute it
@@ -22,3 +22,17 @@ project(build-aux LANGUAGES C CXX
         HOMEPAGE_URL "https://github.com/cppp-project/build-aux" )
 
 include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/cppp.cmake")
+
+# Options for building shared and static libraries.
+option(ENABLE_SHARED "Enable shared libraries" ON)
+option(ENABLE_STATIC "Enable static libraries" ON)
+
+if (NOT ENABLE_SHARED AND NOT ENABLE_STATIC)
+    message(FATAL_ERROR "At least one of ENABLE_SHARED and ENABLE_STATIC must be ON.")
+endif()
+
+if (BUILD_SHARED_LIBS)
+    set(ENABLE_SHARED ON)
+else()
+    set(ENABLE_STATIC ON)
+endif()

@@ -1,6 +1,6 @@
 # library.cmake
 
-# Copyright (C) 2023 The C++ Plus Project.
+# Copyright (C) 2023, 2026 The C++ Plus Project.
 # This file is part of the build-aux library.
 #
 # The build-aux is free software; you can redistribute it and/or
@@ -42,8 +42,8 @@ endif()
 add_compile_definitions(CPPP_EXPORT_API=${CPPP_EXPORT_API})
 
 # Build library
-macro(cppp_build_library name sources enable_shared enable_static resource_file)
-    if(${enable_shared})
+macro(cppp_build_library name sources resource_file)
+    if(ENABLE_SHARED)
         if(MSVC)
             set(RCFILE "${resource_file}")
         else()
@@ -52,27 +52,36 @@ macro(cppp_build_library name sources enable_shared enable_static resource_file)
         add_library(lib${name}.shared SHARED ${${sources}} "${RCFILE}")
         set_target_properties(lib${name}.shared PROPERTIES
             OUTPUT_NAME ${name}
-            ARCHIVE_OUTPUT_DIRECTORY "${output_staticddir}"
-            RUNTIME_OUTPUT_DIRECTORY "${output_bindir}"
-            LIBRARY_OUTPUT_DIRECTORY "${output_shareddir}"
-            PDB_OUTPUT_DIRECTORY "${output_pdbdir}"
-            VERSION ${PROJECT_VERSION} )
-    endif()
-    if(${enable_static})
-        add_library(lib${name}.static STATIC ${${sources}})
-        set_target_properties(lib${name}.static PROPERTIES
-            OUTPUT_NAME ${name}.static
             ARCHIVE_OUTPUT_DIRECTORY "${output_staticdir}"
             RUNTIME_OUTPUT_DIRECTORY "${output_bindir}"
             LIBRARY_OUTPUT_DIRECTORY "${output_shareddir}"
             PDB_OUTPUT_DIRECTORY "${output_pdbdir}"
             VERSION ${PROJECT_VERSION} )
     endif()
+    if(ENABLE_STATIC)
+        add_library(lib${name}.static STATIC ${${sources}})
+        set_target_properties(lib${name}.static PROPERTIES
+            OUTPUT_NAME ${name}
+            ARCHIVE_OUTPUT_DIRECTORY "${output_staticdir}"
+            RUNTIME_OUTPUT_DIRECTORY "${output_bindir}"
+            LIBRARY_OUTPUT_DIRECTORY "${output_shareddir}"
+            PDB_OUTPUT_DIRECTORY "${output_pdbdir}"
+            VERSION ${PROJECT_VERSION} )
+        if (MSVC)
+            set_target_properties(lib${name}.static PROPERTIES
+                OUTPUT_NAME ${name}_static )
+        endif()
+    endif()
+    if (BUILD_SHARED_LIBS)
+        add_library(${name} ALIAS lib${name}.shared)
+    else()
+        add_library(${name} ALIAS lib${name}.static)
+    endif()
 endmacro()
 
 # Install libraries, but not include files or other files.
 macro(cppp_install_library name)
-    if(TARGET lib${name}.shared)
+    if(TARGET lib${name}.shared AND ENABLE_SHARED)
         # PERMISSIONS 0755
         install(TARGETS lib${name}.shared
             EXPORT lib${name}-export
@@ -83,7 +92,7 @@ macro(cppp_install_library name)
             RUNTIME DESTINATION "${install_bindir}"
             INCLUDES DESTINATION "${install_includedir}" )
     endif()
-    if(TARGET lib${name}.static)
+    if(TARGET lib${name}.static AND ENABLE_STATIC)
         # PERMISSIONS 0644
         install(TARGETS lib${name}.static
             DESTINATION "${install_staticdir}"
@@ -92,11 +101,5 @@ macro(cppp_install_library name)
             ARCHIVE DESTINATION "${install_staticdir}"
             RUNTIME DESTINATION "${install_bindir}"
             INCLUDES DESTINATION "${install_includedir}" )
-            # If we are in non-MSVC enviroment, we need to set the output name of the static library.
-            if(NOT MSVC)
-            # Create symlink to static library.
-                install(CODE 
-                    "execute_process(COMMAND \"${CMAKE_COMMAND}\" -E create_symlink lib${name}.static.a lib${name}.a WORKING_DIRECTORY ${install_staticdir})")
-            endif()
     endif()
 endmacro()

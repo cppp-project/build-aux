@@ -1,6 +1,6 @@
 # cppp_init.cmake
 
-# Copyright (C) 2024 The C++ Plus Project.
+# Copyright (C) 2024, 2026 The C++ Plus Project.
 # This file is part of the build-aux library.
 #
 # The build-aux is free software; you can redistribute it and/or
@@ -65,10 +65,10 @@ set(install_bindir "${install_prefix}/bin")
 
 # Install shared output directory.
 if(WIN32)
-    # On native Windows, dynmaic link libraries should put in binary directory. 
+    # On native Windows, dynamic link libraries should be put in the binary directory. 
     set(install_shareddir "${install_prefix}/bin")
 else()
-    # On other OS, dynmaic link libaries can put in library directory.
+    # On other OS, dynamic link libraries can be put in the library directory.
     set(install_shareddir "${install_prefix}/lib")
 endif()
 
@@ -78,5 +78,5 @@ set(install_staticdir "${install_prefix}/lib")
 # Install include directory.
 set(install_includedir "${install_prefix}/include")
 
-# Install manual directory on Unix or *nix OS.
+# Install manual directory on *nix.
 set(install_mandir "${install_prefix}/share/man")
